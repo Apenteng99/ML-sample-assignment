@@ -1,0 +1,82 @@
+Brainomaly Model Comparison Results
+===================================
+
+Date: 2024-03-19
+Dataset: MedicalData
+Image Size: 128x128
+
+1. Training Performance
+----------------------
+
+GAN Model:
+- Training Duration: 270 iterations
+- Best Validation Loss: -0.2361
+- Early Stopping: Yes (at iteration 270)
+- Final Training Loss: -0.1749
+
+Supervised CNN Model:
+- Training Duration: 23 epochs
+- Best Validation Accuracy: 86.25% (Epoch 19)
+- Best Validation Loss: 0.3720 (Epoch 18)
+- Initial Training Accuracy: 54.22%
+- Final Training Accuracy: 79.87%
+- Initial Training Loss: 0.7399
+- Final Training Loss: 0.4589
+- Early Stopping: Yes (at epoch 23)
+
+2. Testing Performance
+---------------------
+
+GAN Model:
+- Inductive AUC: 0.6794 (67.94%)
+- Transductive AUC: 0.6507 (65.07%)
+- AUCp: 0.6507 (65.07%)
+
+Supervised CNN Model:
+- Inductive AUC: 0.8751 (87.51%)
+- Improvement over GAN: +19.57% (relative improvement)
+
+3. Model Architectures
+---------------------
+
+GAN Model:
+- Generator: 3 residual blocks, 32 initial conv dim
+- Discriminator: 3 conv layers, 32 initial conv dim
+- Learning Rate: 0.0002
+- Batch Size: 8
+
+CNN Model:
+- 3 Conv layers (32, 64, 128 channels)
+- MaxPooling after each conv layer
+- Dropout (0.5) in classifier
+- Learning Rate: 0.001
+- Batch Size: 16
+
+4. Key Findings
+--------------
+1. The supervised CNN model significantly outperformed the GAN model in terms of AUC score
+2. The supervised model trained faster and more stably
+3. The supervised model achieved better validation accuracy (86.25%)
+4. The GAN model showed more stable training but lower final performance
+
+5. Future Recommendations
+------------------------
+1. Consider using the supervised CNN model as the primary model for this task
+2. Further hyperparameter tuning could potentially improve the supervised model's performance
+3. The GAN model could be used as a complementary approach for generating synthetic data
+4. Consider ensemble methods combining both models for potentially better results
+
+6. Data Files
+------------
+Detailed results are saved in:
+- MedicalData/results/inductive_results.csv
+- MedicalData/results/transductive_results.csv
+- MedicalData/results/aucp_results.csv
+- MedicalData/results/supervised_results.csv
+
+7. Model Checkpoints
+-------------------
+Best model checkpoints are saved in:
+- MedicalData/models/best-G.ckpt
+- MedicalData/models/best-D.ckpt
+- MedicalData/models/best-supervised.ckpt 
